@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Revenue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Dashboard/styles.css">
+  <link rel="stylesheet" href="revenue.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ════════════════════════ SIDEBAR ════════════════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">Creator<span>Ledger</span></div>
+      <div class="logo-sub">v0.1 · early access</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">OVERVIEW</div>
+      <div class="nav-item" data-href="../Dashboard/index.html"><span class="nav-icon">◈</span> Dashboard</div>
+      <div class="nav-item" data-href="../Content-P&L/content-pl.html"><span class="nav-icon">⬡</span> Content P&L</div>
+      <div class="nav-item active" data-href="revenue.html"><span class="nav-icon">◎</span> Revenue</div>
+      <div class="nav-label">FINANCE</div>
+      <div class="nav-item" data-href="../Expenses/expenses.html"><span class="nav-icon">⬟</span> Expenses</div>
+      <div class="nav-item" data-href="../Tax-jar/tax-jar.html"><span class="nav-icon">◇</span> Tax Jar</div>
+      <div class="nav-item" data-page="deals"><span class="nav-icon">⊡</span> Brand Deals</div>
+      <div class="nav-label">INSIGHTS</div>
+      <div class="nav-item" data-page="reports"><span class="nav-icon">◉</span> Reports</div>
+      <div class="nav-item" data-page="integrations"><span class="nav-icon">⬢</span> Integrations</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="creator-pill">
+        <div class="creator-avatar">RH</div>
+        <div>
+          <div class="creator-name">Reza Hajavi</div>
+          <div class="creator-handle">@redra_ha</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════ MAIN ════════════════════════ -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div>
+        <div class="page-title">Revenue</div>
+        <div class="page-subtitle mono">all streams · last 6 months</div>
+      </div>
+      <div class="topbar-right">
+        <div class="period-toggle">
+          <span class="period-btn active" data-period="6m">6 months</span>
+          <span class="period-btn" data-period="3m">3 months</span>
+          <span class="period-btn" data-period="1y">1 year</span>
+        </div>
+        <button class="btn btn-ghost" id="exportBtn">↓ Export</button>
+        <button class="btn btn-primary" id="addRevenueBtn">+ Add Entry</button>
+      </div>
+    </div>
+
+    <!-- AI Insight -->
+    <div class="ai-bar">
+      <div class="ai-icon">✦</div>
+      <div class="ai-text">
+        Revenue grew <strong>77% over 6 months</strong> — from $5,200 to $9,240. Your
+        <strong>Patreon is the most consistent stream</strong>, never dipping below $1,800.
+        YouTube AdSense is your biggest earner but also your most volatile — consider
+        <strong>growing Patreon to 300 patrons</strong> to add a stable $600/month floor.
+        <span class="ai-meta"> · AI insight · updated 2h ago</span>
+      </div>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="metrics-row">
+      <div class="metric-card green">
+        <div class="metric-label">THIS MONTH</div>
+        <div class="metric-value green">$9,240</div>
+        <span class="metric-change up">↑ 18% vs last month</span>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">6-MONTH TOTAL</div>
+        <div class="metric-value green">$40,070</div>
+        <span class="metric-change up">↑ 31% vs prior 6mo</span>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-label">MONTHLY AVG</div>
+        <div class="metric-value purple">$6,678</div>
+        <span class="metric-change" style="background:var(--purple-bg);color:var(--purple);">last 6 months</span>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-label">BEST MONTH</div>
+        <div class="metric-value amber">$9,240</div>
+        <span class="metric-change warn">May 2026 ↑</span>
+      </div>
+    </div>
+
+    <!-- Main chart + stream breakdown -->
+    <div class="grid-3-1" style="margin-bottom:24px;">
+
+      <!-- Stacked area chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">REVENUE OVER TIME</span>
+          <div class="chart-legend" style="margin-bottom:0;">
+            <div class="legend-item"><div class="legend-dot" style="background:#FF5757"></div>YouTube</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#FFB547"></div>Patreon</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#00E5A0"></div>Deals</div>
+          </div>
+        </div>
+        <div class="area-chart-wrap">
+          <canvas id="revenueChart" height="160"></canvas>
+          <div class="chart-x-labels" id="chartXLabels"></div>
+        </div>
+      </div>
+
+      <!-- Stream totals -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">BY STREAM</span>
+          <span class="card-action">6 months</span>
+        </div>
+        <div class="stream-list" id="streamList"></div>
+      </div>
+
+    </div>
+
+    <!-- MoM growth + stream table -->
+    <div class="grid-2-1" style="margin-bottom:24px;">
+
+      <!-- Month-over-month bars -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">MONTH-OVER-MONTH GROWTH</span>
+        </div>
+        <div id="momBars"></div>
+      </div>
+
+      <!-- Consistency score -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">STREAM RELIABILITY</span>
+        </div>
+        <div id="reliabilityList"></div>
+      </div>
+
+    </div>
+
+    <!-- Transaction log -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="rev-table-header">
+        <div class="rev-col-wide">SOURCE</div>
+        <div class="rev-col">DATE</div>
+        <div class="rev-col">STREAM</div>
+        <div class="rev-col">AMOUNT</div>
+        <div class="rev-col">VS LAST MO</div>
+      </div>
+      <div id="revTableBody"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Add Revenue modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Revenue Entry</div>
+      <div class="modal-close" id="modalClose">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Source / description</label>
+        <input class="field-input" type="text" placeholder="e.g. YouTube AdSense — May payout">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Stream</label>
+          <select class="field-input">
+            <option>YouTube AdSense</option>
+            <option>YouTube Memberships</option>
+            <option>Patreon</option>
+            <option>Brand Deal</option>
+            <option>Merch</option>
+            <option>Course / Digital product</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Amount ($)</label>
+          <input class="field-input" type="number" placeholder="0.00">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Date received</label>
+          <input class="field-input" type="date">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Notes (optional)</label>
+          <input class="field-input" type="text" placeholder="e.g. Q1 brand collab final payment">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<script src="revenue.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Expenses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/Dashboard/styles.css">
+  <link rel="stylesheet" href="expenses.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ════════════════════════ SIDEBAR ════════════════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">Creator<span>Ledger</span></div>
+      <div class="logo-sub">v0.1 · early access</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">OVERVIEW</div>
+      <div class="nav-item" data-href="../Dashboard/index.html"><span class="nav-icon">◈</span> Dashboard</div>
+      <div class="nav-item" data-href="../Content-P&L/content-pl.html"><span class="nav-icon">⬡</span> Content P&L</div>
+      <div class="nav-item" data-href="../Revenue/revenue.html"><span class="nav-icon">◎</span> Revenue</div>
+      <div class="nav-label">FINANCE</div>
+      <div class="nav-item active"><span class="nav-icon">⬟</span> Expenses</div>
+      <div class="nav-item" data-href="../Tax-jar/tax-jar.html"><span class="nav-icon">◇</span> Tax Jar</div>
+      <div class="nav-item" data-page="deals"><span class="nav-icon">⊡</span> Brand Deals</div>
+      <div class="nav-label">INSIGHTS</div>
+      <div class="nav-item" data-page="reports"><span class="nav-icon">◉</span> Reports</div>
+      <div class="nav-item" data-page="integrations"><span class="nav-icon">⬢</span> Integrations</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="creator-pill">
+        <div class="creator-avatar">RH</div>
+        <div>
+          <div class="creator-name">Reza Hajavi</div>
+          <div class="creator-handle">@redra_ha</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════ MAIN ════════════════════════ -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div>
+        <div class="page-title">Expenses</div>
+        <div class="page-subtitle mono">all costs · May 2026</div>
+      </div>
+      <div class="topbar-right">
+        <div class="period-toggle">
+          <span class="period-btn active" data-period="month">This month</span>
+          <span class="period-btn" data-period="quarter">Quarter</span>
+          <span class="period-btn" data-period="year">Year</span>
+        </div>
+        <button class="btn btn-ghost" id="exportBtn">↓ Export</button>
+        <button class="btn btn-primary" id="addExpenseBtn">+ Add Expense</button>
+      </div>
+    </div>
+
+    <!-- AI Insight -->
+    <div class="ai-bar">
+      <div class="ai-icon">✦</div>
+      <div class="ai-text">
+        <strong>Freelancer costs are your biggest expense</strong> at 51% of total spend —
+        driven by the brand deal video editor fee. Your software stack costs
+        <strong>$312/month</strong>, which is healthy. Consider auditing tools you haven't
+        used in 30 days — you might be paying for <strong>2–3 unused subscriptions</strong>.
+        <span class="ai-meta"> · AI insight · updated 2h ago</span>
+      </div>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="metrics-row">
+      <div class="metric-card red">
+        <div class="metric-label">TOTAL EXPENSES</div>
+        <div class="metric-value red">$2,180</div>
+        <span class="metric-change down">↑ 6% vs last month</span>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-label">DEDUCTIBLE</div>
+        <div class="metric-value amber">$1,960</div>
+        <span class="metric-change warn">90% of spend</span>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">TAX SAVING EST.</div>
+        <div class="metric-value green">$588</div>
+        <span class="metric-change up">at 30% tax rate</span>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-label">LARGEST CATEGORY</div>
+        <div class="metric-value purple" style="font-size:18px;letter-spacing:-0.5px;">Freelancers</div>
+        <span class="metric-change" style="background:var(--purple-bg);color:var(--purple);">$1,120 · 51%</span>
+      </div>
+    </div>
+
+    <!-- Category breakdown + monthly trend -->
+    <div class="grid-3-1" style="margin-bottom:24px;">
+
+      <!-- Category bars -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">SPEND BY CATEGORY</span>
+          <span class="card-action" id="toggleViewBtn">switch to chart →</span>
+        </div>
+        <!-- Bar view -->
+        <div id="catBarsView">
+          <div id="categoryBars"></div>
+        </div>
+        <!-- Donut view -->
+        <div id="catDonutView" class="hidden">
+          <div class="exp-donut-wrap">
+            <svg id="expDonut" viewBox="0 0 120 120" width="140" height="140">
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#222228" stroke-width="16"/>
+            </svg>
+            <div class="exp-donut-center">
+              <div class="exp-donut-val">$2,180</div>
+              <div class="exp-donut-lbl">total</div>
+            </div>
+          </div>
+          <div id="donutLegend"></div>
+        </div>
+      </div>
+
+      <!-- Monthly trend -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">MONTHLY TREND</span>
+        </div>
+        <div class="trend-list" id="trendList"></div>
+      </div>
+
+    </div>
+
+    <!-- Filter tabs + search -->
+    <div class="table-controls" style="margin-bottom:12px;">
+      <div class="filter-tabs">
+        <span class="filter-tab active" data-filter="all">All</span>
+        <span class="filter-tab" data-filter="freelancer">Freelancers</span>
+        <span class="filter-tab" data-filter="software">Software</span>
+        <span class="filter-tab" data-filter="production">Production</span>
+        <span class="filter-tab" data-filter="equipment">Equipment</span>
+        <span class="filter-tab" data-filter="other">Other</span>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search expenses…">
+      </div>
+    </div>
+
+    <!-- Expenses table -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="exp-table-header">
+        <div class="exp-col-wide">DESCRIPTION</div>
+        <div class="exp-col">DATE</div>
+        <div class="exp-col">CATEGORY</div>
+        <div class="exp-col">LINKED TO</div>
+        <div class="exp-col">DEDUCTIBLE</div>
+        <div class="exp-col">AMOUNT</div>
+      </div>
+      <div id="expTableBody"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Add Expense modal -->
+<div class="exp-overlay" id="expOverlay">
+  <div class="exp-modal">
+
+    <div class="exp-modal-header">
+      <div>
+        <div class="exp-modal-title">Add Expense</div>
+        <div class="exp-modal-sub">Log a cost against your creator business</div>
+      </div>
+      <div class="exp-modal-close" id="expClose">✕</div>
+    </div>
+
+    <!-- Steps -->
+    <div class="exp-steps">
+      <div class="estep active" data-step="1"><div class="estep-dot">1</div><div class="estep-label">Details</div></div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="2"><div class="estep-dot">2</div><div class="estep-label">Categorise</div></div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="3"><div class="estep-dot">3</div><div class="estep-label">Confirm</div></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="exp-step-body" id="expStepBody1">
+      <div class="efield-group">
+        <label class="efield-label">Description</label>
+        <input class="efield-input" id="expDesc" type="text" placeholder="e.g. Freelance video editor — May batch">
+      </div>
+      <div class="efield-row">
+        <div class="efield-group">
+          <label class="efield-label">Amount ($)</label>
+          <div class="amount-wrap">
+            <span class="amount-prefix">$</span>
+            <input class="efield-input amount-input" id="expAmount" type="number" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="efield-group">
+          <label class="efield-label">Date</label>
+          <input class="efield-input" id="expDate" type="date">
+        </div>
+      </div>
+      <div class="efield-group">
+        <label class="efield-label">Paid via</label>
+        <div class="pay-pills">
+          <span class="pay-pill active" data-pay="card">💳 Card</span>
+          <span class="pay-pill" data-pay="bank">🏦 Bank</span>
+          <span class="pay-pill" data-pay="paypal">P PayPal</span>
+          <span class="pay-pill" data-pay="crypto">◎ Crypto</span>
+          <span class="pay-pill" data-pay="cash">Cash</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="exp-step-body hidden" id="expStepBody2">
+      <div class="efield-group">
+        <label class="efield-label">Category</label>
+        <div class="cat-grid" id="catGrid"></div>
+      </div>
+      <div class="efield-group">
+        <label class="efield-label">Link to content (optional)</label>
+        <select class="efield-input" id="expLinked">
+          <option value="">— Not linked to a specific video —</option>
+          <option>How I grew 50k subs in 60 days</option>
+          <option>Honest review: Creator tools tier list</option>
+          <option>Brand collab — SaaS tool review</option>
+          <option>Patreon monthly Q&A + 3 Shorts</option>
+        </select>
+      </div>
+      <div class="efield-group">
+        <label class="efield-label">Tax deductible?</label>
+        <div class="tax-toggle-row">
+          <div class="tax-toggle" id="taxToggle">
+            <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+            <span class="toggle-label" id="taxLabel">Yes — business expense</span>
+          </div>
+          <div class="tax-hint" id="taxHint">Select a category to see deduction guidance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="exp-step-body hidden" id="expStepBody3">
+      <div class="confirm-card">
+        <div class="confirm-row"><span class="confirm-label">Description</span><span class="confirm-val" id="cfDesc">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Amount</span><span class="confirm-val confirm-amount" id="cfAmount">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Date</span><span class="confirm-val" id="cfDate2">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Category</span><span class="confirm-val" id="cfCat">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Linked content</span><span class="confirm-val" id="cfLinked">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Tax deductible</span><span class="confirm-val" id="cfTax">—</span></div>
+        <div class="confirm-row"><span class="confirm-label">Paid via</span><span class="confirm-val" id="cfPay">—</span></div>
+      </div>
+      <div class="impact-bar" id="impactBar">
+        <div class="impact-icon">◈</div>
+        <div class="impact-text" id="impactText">—</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="exp-modal-footer">
+      <button class="btn btn-ghost" id="expBack" style="display:none;">← Back</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" id="expCancel">Cancel</button>
+      <button class="btn btn-primary" id="expNext">Continue →</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="expenses.js"></script>
+</body>
+</html>

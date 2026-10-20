@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Expense Modal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../expense/expense-modal.css">
+</head>
+<body>
+<!-- Modal -->
+<div class="modal-overlay open" id="expenseOverlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Add Expense</div>
+        <div class="expense-modal-sub">Log a cost against your creator business</div>
+      </div>
+      <div class="modal-close" id="expenseClose">✕</div>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="expense-steps">
+      <div class="estep active" data-step="1">
+        <div class="estep-dot">1</div>
+        <div class="estep-label">Details</div>
+      </div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="2">
+        <div class="estep-dot">2</div>
+        <div class="estep-label">Categorise</div>
+      </div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="3">
+        <div class="estep-dot">3</div>
+        <div class="estep-label">Confirm</div>
+      </div>
+    </div>
+
+    <!-- Step 1: Details -->
+    <div class="modal-body" id="stepBody1">
+      <div class="field-group">
+        <label class="field-label">Description</label>
+        <input class="field-input" id="expDesc" type="text"
+               placeholder="e.g. Freelance video editor — May batch">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Amount ($)</label>
+          <div class="amount-wrap">
+            <span class="amount-prefix">$</span>
+            <input class="field-input amount-input" id="expAmount"
+                   type="number" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date</label>
+          <input class="field-input" id="expDate" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Paid via</label>
+        <div class="payment-pills">
+          <span class="pay-pill active" data-pay="card">💳 Card</span>
+          <span class="pay-pill" data-pay="bank">🏦 Bank transfer</span>
+          <span class="pay-pill" data-pay="paypal">P PayPal</span>
+          <span class="pay-pill" data-pay="crypto">◎ Crypto</span>
+          <span class="pay-pill" data-pay="cash">Cash</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Categorise -->
+    <div class="modal-body hidden" id="stepBody2">
+      <div class="field-group">
+        <label class="field-label">Category</label>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+      <div class="field-group" style="margin-top:4px;">
+        <label class="field-label">Link to content (optional)</label>
+        <select class="field-input" id="expContent">
+          <option value="">— Not linked to a specific video —</option>
+          <option>How I grew 50k subs in 60 days</option>
+          <option>Honest review: Creator tools tier list</option>
+          <option>Brand collab — SaaS tool review</option>
+          <option>Patreon monthly Q&A + 3 Shorts</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Is this tax-deductible?</label>
+        <div class="toggle-row">
+          <div class="tax-toggle" id="taxToggle">
+            <div class="toggle-track">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span class="toggle-label" id="taxLabel">Yes — business expense</span>
+          </div>
+          <div class="tax-hint" id="taxHint">Deductible as a direct production cost</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Confirm -->
+    <div class="modal-body hidden" id="stepBody3">
+      <div class="confirm-card">
+        <div class="confirm-row">
+          <span class="confirm-label">Description</span>
+          <span class="confirm-val" id="cfDesc">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Amount</span>
+          <span class="confirm-val confirm-amount" id="cfAmount">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Date</span>
+          <span class="confirm-val" id="cfDate">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Category</span>
+          <span class="confirm-val" id="cfCategory">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Linked content</span>
+          <span class="confirm-val" id="cfContent">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Tax deductible</span>
+          <span class="confirm-val" id="cfTax">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Paid via</span>
+          <span class="confirm-val" id="cfPay">—</span>
+        </div>
+      </div>
+      <div class="impact-bar" id="impactBar">
+        <div class="impact-icon">◈</div>
+        <div class="impact-text" id="impactText">—</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="expBack" style="display:none;">← Back</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" id="expCancel">Cancel</button>
+      <button class="btn btn-primary" id="expNext">Continue →</button>
+    </div>
+
+  </div>
+</div>
+<script src="./expense-modal.js"></script>
+</body>
+</html>

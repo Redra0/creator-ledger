@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Tax Jar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/Dashboard/styles.css">
+  <link rel="stylesheet" href="tax-jar.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">Creator<span>Ledger</span></div>
+      <div class="logo-sub">v0.1 · early access</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">OVERVIEW</div>
+      <div class="nav-item" data-href="../Dashboard/index.html"><span class="nav-icon">◈</span> Dashboard</div>
+      <div class="nav-item" data-href="../Content-P&L/content-pl.html"><span class="nav-icon">⬡</span> Content P&L</div>
+      <div class="nav-item" data-href="../Revenue/revenue.html"><span class="nav-icon">◎</span> Revenue</div>
+      <div class="nav-label">FINANCE</div>
+      <div class="nav-item" data-href="../Expenses/expenses.html"><span class="nav-icon">⬟</span> Expenses</div>
+      <div class="nav-item active" data-href="tax-jar.html"><span class="nav-icon">◇</span> Tax Jar</div>
+      <div class="nav-item"><span class="nav-icon">⊡</span> Brand Deals</div>
+      <div class="nav-label">INSIGHTS</div>
+      <div class="nav-item"><span class="nav-icon">◉</span> Reports</div>
+      <div class="nav-item"><span class="nav-icon">⬢</span> Integrations</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="creator-pill">
+        <div class="creator-avatar">RH</div>
+        <div>
+          <div class="creator-name">Reza Hajavi</div>
+          <div class="creator-handle">@redra.ha</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="page-title">Tax Jar</div>
+        <div class="page-subtitle mono">2026 · self-employed · US federal</div>
+      </div>
+      <div class="topbar-right">
+        <!-- <button class="btn btn-ghost" id="settingsBtn">⚙ Settings</button> -->
+        <button class="btn btn-primary" id="logPaymentBtn">+ Log Tax Payment</button>
+      </div>
+    </div>
+
+    <div class="ai-bar">
+      <div class="ai-icon">✦</div>
+      <div class="ai-text">
+        Your Q3 estimated tax is due <strong>July 15</strong> — in 10 days.
+        You are <strong>$850 short</strong> of your target. Based on your current revenue pace,
+        set aside <strong>$425 from your next two payouts</strong> to close the gap.
+        Missing estimated payments triggers a <strong>penalty of ~0.5%/month</strong>.
+        <span class="ai-meta"> · AI insight · updated 2h ago</span>
+      </div>
+    </div>
+
+    <div class="deadline-banner">
+      <div class="deadline-left">
+        <div class="deadline-icon">⚠</div>
+        <div>
+          <div class="deadline-title">Q3 Estimated Tax Due — July 15, 2026</div>
+          <div class="deadline-sub">10 days away · IRS Form 1040-ES · $3,160 target</div>
+        </div>
+      </div>
+      <div class="deadline-right">
+        <div class="deadline-countdown">10</div>
+        <div class="deadline-countdown-label">days left</div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-card amber">
+        <div class="metric-label">RESERVED (Q3)</div>
+        <div class="metric-value amber">$2,310</div>
+        <span class="metric-change warn">73% of target</span>
+      </div>
+      <div class="metric-card red">
+        <div class="metric-label">STILL NEEDED</div>
+        <div class="metric-value red">$850</div>
+        <span class="metric-change down">by Jul 15</span>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">TOTAL PAID (2026)</div>
+        <div class="metric-value green">$6,420</div>
+        <span class="metric-change up">Q1 + Q2 paid ✓</span>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-label">EST. ANNUAL TAX</div>
+        <div class="metric-value purple">$18,200</div>
+        <span class="metric-change" style="background:var(--purple-bg);color:var(--purple);">at ~24% eff. rate</span>
+      </div>
+    </div>
+
+    <div class="grid-3-1" style="margin-bottom:24px;">
+      <div class="card jar-card">
+        <div class="card-header">
+          <span class="card-title">Q3 TAX JAR — JUL 15 DEADLINE</span>
+          <span class="card-action" id="adjustRateBtn">adjust rate ↗</span>
+        </div>
+        <div class="jar-visual-wrap">
+          <div class="jar-ring-wrap">
+            <svg class="jar-svg-big" viewBox="0 0 200 200" width="200" height="200">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="#222228" stroke-width="18"/>
+              <circle cx="100" cy="100" r="82" fill="none"
+                      stroke="#FFB547" stroke-width="18"
+                      stroke-dasharray="515.2" stroke-dashoffset="139"
+                      stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="82" fill="none"
+                      stroke="#FF5757" stroke-width="18"
+                      stroke-dasharray="515.2" stroke-dashoffset="-376"
+                      stroke-linecap="round" transform="rotate(-90 100 100)" opacity="0.25"/>
+            </svg>
+            <div class="jar-center">
+              <div class="jar-pct">73%</div>
+              <div class="jar-pct-label">reserved</div>
+              <div class="jar-amount">$2,310</div>
+              <div class="jar-of">of $3,160</div>
+            </div>
+          </div>
+          <div class="jar-gap-row">
+            <div class="jar-gap-item">
+              <div class="jar-gap-val" style="color:var(--amber)">$2,310</div>
+              <div class="jar-gap-label">Reserved</div>
+            </div>
+            <div class="jar-gap-divider"></div>
+            <div class="jar-gap-item">
+              <div class="jar-gap-val" style="color:var(--red)">$850</div>
+              <div class="jar-gap-label">Still needed</div>
+            </div>
+            <div class="jar-gap-divider"></div>
+            <div class="jar-gap-item">
+              <div class="jar-gap-val" style="color:var(--text2)">$3,160</div>
+              <div class="jar-gap-label">Target</div>
+            </div>
+          </div>
+          <div class="rate-breakdown">
+            <div class="rate-title">HOW YOUR TARGET IS CALCULATED</div>
+            <div class="rate-row"><span class="rate-label">Q3 gross income</span><span class="rate-val">$27,070</span></div>
+            <div class="rate-row"><span class="rate-label">Deductible expenses</span><span class="rate-val" style="color:var(--green)">− $5,410</span></div>
+            <div class="rate-row"><span class="rate-label">Taxable net</span><span class="rate-val">$21,660</span></div>
+            <div class="rate-row"><span class="rate-label">Self-employment tax (15.3%)</span><span class="rate-val" style="color:var(--red)">$1,486</span></div>
+            <div class="rate-row"><span class="rate-label">Federal income tax (22% bracket)</span><span class="rate-val" style="color:var(--red)">$1,674</span></div>
+            <div class="rate-row rate-row-total"><span class="rate-label">Q3 estimated payment</span><span class="rate-val" style="color:var(--amber);font-weight:700;">$3,160</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">ALL QUARTERS</span>
+          <span class="card-action">2026 tax year</span>
+        </div>
+        <div id="quartersList"></div>
+
+        <div class="card-header" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+          <span class="card-title">RESERVE RATE</span>
+        </div>
+        <div class="rate-pill-row" id="ratePills">
+          <div class="rate-pill active" data-rate="25">25%</div>
+          <div class="rate-pill" data-rate="28">28%</div>
+          <div class="rate-pill" data-rate="30">30%</div>
+          <div class="rate-pill" data-rate="32">32%</div>
+          <div class="rate-pill custom" data-rate="custom">Custom</div>
+        </div>
+        <div class="rate-hint">Set aside this % of every income event automatically</div>
+
+        <div class="card-header" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+          <span class="card-title">DEDUCTIONS FOUND</span>
+        </div>
+        <div id="deductionsList"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="log-table-header">
+        <div class="log-col-wide">INCOME EVENT</div>
+        <div class="log-col">DATE</div>
+        <div class="log-col">INCOME</div>
+        <div class="log-col">RATE</div>
+        <div class="log-col">RESERVED</div>
+        <div class="log-col">STATUS</div>
+      </div>
+      <div id="logTableBody"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Log Tax Payment modal -->
+<div class="tax-overlay" id="taxOverlay">
+  <div class="tax-modal">
+    <div class="tax-modal-header">
+      <div>
+        <div class="tax-modal-title">Log Tax Payment</div>
+        <div class="tax-modal-sub">Record a payment made to the IRS</div>
+      </div>
+      <div class="tax-modal-close" id="taxClose">✕</div>
+    </div>
+    <div class="tax-modal-body">
+      <div class="tfield-group">
+        <label class="tfield-label">Quarter</label>
+        <select class="tfield-input">
+          <option>Q1 2026 (Jan–Mar) · Due Apr 15</option>
+          <option>Q2 2026 (Apr–Jun) · Due Jun 16</option>
+          <option selected>Q3 2026 (Jul–Sep) · Due Jul 15</option>
+          <option>Q4 2026 (Oct–Dec) · Due Jan 15, 2027</option>
+        </select>
+      </div>
+      <div class="tfield-row">
+        <div class="tfield-group">
+          <label class="tfield-label">Amount paid ($)</label>
+          <div class="tamount-wrap">
+            <span class="tamount-prefix">$</span>
+            <input class="tfield-input tamount-input" type="number" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="tfield-group">
+          <label class="tfield-label">Date paid</label>
+          <input class="tfield-input" type="date">
+        </div>
+      </div>
+      <div class="tfield-group">
+        <label class="tfield-label">Payment method</label>
+        <select class="tfield-input">
+          <option>IRS Direct Pay</option>
+          <option>EFTPS</option>
+          <option>Check (mailed)</option>
+          <option>Credit card via IRS</option>
+        </select>
+      </div>
+      <div class="tfield-group">
+        <label class="tfield-label">Confirmation number (optional)</label>
+        <input class="tfield-input" type="text" placeholder="e.g. 2026-04152638">
+      </div>
+      <div class="tax-impact">
+        <div style="color:var(--green);font-size:14px;">✓</div>
+        <div style="color:var(--green);font-size:12px;font-family:'DM Mono',monospace;line-height:1.5;">
+          Logging this payment will mark Q3 as partially paid and update your remaining balance.
+        </div>
+      </div>
+    </div>
+    <div class="tax-modal-footer">
+      <button class="btn btn-ghost" id="taxCancel">Cancel</button>
+      <button class="btn btn-primary" id="taxSave">Save Payment</button>
+    </div>
+  </div>
+</div>
+
+<script src="tax-jar.js"></script>
+</body>
+</html>

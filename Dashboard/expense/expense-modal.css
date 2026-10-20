@@ -1,0 +1,274 @@
+/* ─── Overlay ────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+.modal-overlay.open {
+  opacity: 1; pointer-events: all;
+}
+
+/* ─── Modal shell ────────────────────────────────────── */
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  width: 480px;
+  max-width: calc(100vw - 40px);
+  transform: translateY(12px);
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
+}
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; border-bottom: 1px solid var(--border);
+}
+.modal-title {
+  font-size: 15px; font-weight: 700;
+}
+.expense-modal-sub {
+  font-size: 12px; color: var(--text3);
+  font-family: 'DM Mono', monospace; margin-top: 3px;
+}
+.modal-close {
+  font-size: 14px; color: var(--text3); cursor: pointer;
+  padding: 4px; transition: color 0.15s;
+}
+.modal-close:hover { color: var(--text); }
+
+/* ─── Step indicator ─────────────────────────────────── */
+.expense-steps {
+  display: flex; align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.estep {
+  display: flex; align-items: center; gap: 7px;
+  cursor: default; flex-shrink: 0;
+}
+.estep-dot {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  color: var(--text3);
+  transition: all 0.2s;
+  font-family: 'DM Mono', monospace;
+}
+.estep-label {
+  font-size: 12px; font-weight: 600; color: var(--text3);
+  transition: color 0.2s;
+}
+.estep.active .estep-dot {
+  background: var(--green);
+  border-color: var(--green);
+  color: #0A0A0B;
+}
+.estep.active .estep-label { color: var(--text); }
+.estep.done .estep-dot {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+}
+.estep.done .estep-label { color: var(--text2); }
+
+.estep-line {
+  flex: 1; height: 1px;
+  background: var(--border);
+  margin: 0 10px;
+}
+
+/* ─── Step body ──────────────────────────────────────── */
+.modal-body {
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.modal-body.hidden { display: none; }
+
+/* ─── Fields ─────────────────────────────────────────── */
+.field-group { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.field-row   { display: flex; gap: 12px; }
+.field-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--text3); letter-spacing: 0.04em;
+  font-family: 'DM Mono', monospace;
+}
+.field-input {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-size: 13px; color: var(--text);
+  font-family: 'Syne', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.field-input:focus { border-color: var(--green); }
+.field-input::placeholder { color: var(--text3); }
+.field-input option { background: var(--bg3); }
+
+.amount-wrap { position: relative; }
+.amount-prefix {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px; color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  pointer-events: none;
+}
+.amount-input { padding-left: 24px; }
+
+/* ─── Payment pills ──────────────────────────────────── */
+.payment-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pay-pill {
+  font-size: 12px; font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Syne', sans-serif;
+}
+.pay-pill:hover { border-color: var(--border2); color: var(--text2); }
+.pay-pill.active {
+  background: var(--green-bg);
+  border-color: rgba(0, 229, 160, 0.3);
+  color: var(--green);
+}
+
+/* ─── Category grid ──────────────────────────────────── */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cat-item {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; padding: 12px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer; transition: all 0.15s;
+  text-align: center;
+}
+.cat-item:hover { border-color: var(--border2); background: var(--bg3); }
+.cat-item.active {
+  border-color: rgba(0, 229, 160, 0.3);
+  background: var(--green-bg);
+}
+.cat-icon {
+  font-size: 18px; line-height: 1;
+}
+.cat-label {
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  line-height: 1.2;
+}
+.cat-item.active .cat-label { color: var(--green); }
+
+/* ─── Tax toggle ─────────────────────────────────────── */
+.toggle-row { display: flex; flex-direction: column; gap: 6px; }
+.tax-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.toggle-track {
+  width: 38px; height: 22px;
+  border-radius: 11px;
+  background: var(--border2);
+  position: relative; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.toggle-track.on { background: var(--green); }
+.toggle-thumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text3);
+  transition: transform 0.2s, background 0.2s;
+}
+.toggle-track.on .toggle-thumb {
+  transform: translateX(16px);
+  background: #0A0A0B;
+}
+.toggle-label { font-size: 13px; color: var(--text2); font-weight: 500; }
+.tax-hint {
+  font-size: 11px; color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  padding: 6px 10px;
+  background: var(--bg3); border-radius: 6px;
+}
+
+/* ─── Confirm card ───────────────────────────────────── */
+.confirm-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.confirm-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.confirm-row:last-child { border-bottom: none; }
+.confirm-label {
+  font-size: 11px; color: var(--text3);
+  font-family: 'DM Mono', monospace; flex-shrink: 0;
+}
+.confirm-val {
+  font-size: 13px; color: var(--text); font-weight: 500;
+  text-align: right;
+}
+.confirm-amount {
+  font-size: 16px; font-weight: 700;
+  color: var(--red);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ─── Impact bar ─────────────────────────────────────── */
+.impact-bar {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  background: var(--amber-bg);
+  border: 1px solid rgba(255, 181, 71, 0.2);
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+}
+.impact-icon { font-size: 14px; color: var(--amber); flex-shrink: 0; margin-top: 1px; }
+.impact-text { font-size: 12px; color: var(--amber); line-height: 1.6; font-family: 'DM Mono', monospace; }
+
+/* ─── Success state ──────────────────────────────────── */
+.expense-success {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 12px;
+  padding: 40px 24px; text-align: center;
+}
+.success-ring {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green-bg);
+  border: 2px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.success-title  { font-size: 17px; font-weight: 700; }
+.success-sub    { font-size: 13px; color: var(--text3); font-family: 'DM Mono', monospace; }
+
+/* ─── Footer ─────────────────────────────────────────── */
+.modal-footer {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  justify-content: flex-end;
+  flex-shrink: 0;
+}

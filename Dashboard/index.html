@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="expense/expense-modal.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ════════════════════════════ SIDEBAR ════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">Creator<span>Ledger</span></div>
+      <div class="logo-sub">v0.1 · early access</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">OVERVIEW</div>
+      <div class="nav-item active" data-href="index.html">
+        <span class="nav-icon">◈</span> Dashboard
+      </div>
+      <div class="nav-item" data-href="../Content-P&L/content-pl.html">
+        <span class="nav-icon">⬡</span> Content P&L
+      </div>
+      <div class="nav-item" data-href="../Revenue/revenue.html">
+        <span class="nav-icon">◎</span> Revenue
+      </div>
+
+      <div class="nav-label">FINANCE</div>
+      <div class="nav-item" data-href="../Expenses/expenses.html">
+        <span class="nav-icon">⬟</span> Expenses
+      </div>
+      <div class="nav-item" data-href="../Tax-jar/tax-jar.html">
+        <span class="nav-icon">◇</span> Tax Jar
+      </div>
+      <div class="nav-item" data-page="deals">
+        <span class="nav-icon">⊡</span> Brand Deals
+      </div>
+
+      <div class="nav-label">INSIGHTS</div>
+      <div class="nav-item" data-page="reports">
+        <span class="nav-icon">◉</span> Reports
+      </div>
+      <div class="nav-item" data-page="integrations">
+        <span class="nav-icon">⬢</span> Integrations
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="creator-pill">
+        <div class="creator-avatar">RH</div>
+        <div>
+          <div class="creator-name">Reza Hajavi</div>
+          <div class="creator-handle">@redra_ha</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════ MAIN ════════════════════════════ -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-subtitle mono">May 2026 · all platforms</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-ghost" id="addExpenseBtn">+ Add Expense</button>
+        <button class="btn btn-primary" id="logContentBtn">⬡ Log Content</button>
+      </div>
+    </div>
+
+      <!-- Log Content modal (copied from Content-P&L/content-pl.html) -->
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+          <div class="modal-header">
+            <div class="modal-title">Log Content</div>
+            <div class="modal-close" id="modalClose">✕</div>
+          </div>
+          <div class="modal-body">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input class="field-input" type="text" placeholder="e.g. How I built a SaaS in 30 days">
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Platform</label>
+                <select class="field-input">
+                  <option>YouTube</option>
+                  <option>Patreon</option>
+                  <option>TikTok</option>
+                  <option>Instagram</option>
+                  <option>Substack</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Type</label>
+                <select class="field-input">
+                  <option>Organic</option>
+                  <option>Sponsored</option>
+                  <option>Membership</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Revenue ($)</label>
+                <input class="field-input" type="number" placeholder="0.00">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Production costs ($)</label>
+                <input class="field-input" type="number" placeholder="0.00">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Hours spent</label>
+                <input class="field-input" type="number" placeholder="0">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Published date</label>
+                <input class="field-input" type="date">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Notes</label>
+              <input class="field-input" type="text" placeholder="e.g. Editor: $200, Thumbnail: $50">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+            <button class="btn btn-primary">Save Content</button>
+          </div>
+        </div>
+      </div>
+
+    <!-- AI Insight -->
+    <div class="ai-bar">
+      <div class="ai-icon">✦</div>
+      <div class="ai-text">
+        Your <strong>YouTube Shorts</strong> are generating
+        <strong>3.2× more profit per hour spent</strong> than long-form videos this month.
+        Your highest-cost content (the brand collab video) returned only $340 net after
+        editor fees — consider renegotiating your rate.
+        <span class="ai-meta"> · AI insight · updated 2h ago</span>
+      </div>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="metrics-row">
+      <div class="metric-card green">
+        <div class="metric-label">NET REVENUE</div>
+        <div class="metric-value green">$9,240</div>
+        <span class="metric-change up">↑ 18% vs last month</span>
+      </div>
+      <div class="metric-card red">
+        <div class="metric-label">TOTAL COSTS</div>
+        <div class="metric-value red">$2,180</div>
+        <span class="metric-change down">↑ 6% vs last month</span>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">NET PROFIT</div>
+        <div class="metric-value green">$7,060</div>
+        <span class="metric-change up">↑ 24% vs last month</span>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-label">TAX RESERVED</div>
+        <div class="metric-value amber">$2,310</div>
+        <span class="metric-change warn">28% of revenue</span>
+      </div>
+    </div>
+
+    <!-- Revenue chart + Streams -->
+    <div class="grid-3-1">
+
+      <!-- Chart card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">REVENUE VS COSTS</span>
+          <span class="card-action">6 months ↓</span>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--green)"></div>Income
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--border2)"></div>Costs
+          </div>
+        </div>
+        <div class="chart-bars" id="chart"></div>
+        <div class="chart-labels">
+          <div class="chart-label">DEC</div>
+          <div class="chart-label">JAN</div>
+          <div class="chart-label">FEB</div>
+          <div class="chart-label">MAR</div>
+          <div class="chart-label">APR</div>
+          <div class="chart-label">MAY</div>
+        </div>
+      </div>
+
+      <!-- Streams card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">REVENUE STREAMS</span>
+          <a class="card-action" href="../Revenue/revenue.html">view all →</a>
+        </div>
+        <div class="stream-list">
+          <div class="stream-item">
+            <div class="stream-icon" style="background:rgba(255,0,0,0.1);">▶</div>
+            <div class="stream-info">
+              <div class="stream-name">YouTube</div>
+              <div class="stream-detail">AdSense + memberships</div>
+              <div class="stream-bar-track">
+                <div class="stream-bar-fill" style="width:62%;background:var(--red)"></div>
+              </div>
+            </div>
+            <div class="stream-amount mono">$5,720</div>
+          </div>
+          <div class="stream-item">
+            <div class="stream-icon" style="background:rgba(249,115,22,0.1);">P</div>
+            <div class="stream-info">
+              <div class="stream-name">Patreon</div>
+              <div class="stream-detail">247 active patrons</div>
+              <div class="stream-bar-track">
+                <div class="stream-bar-fill" style="width:22%;background:var(--amber)"></div>
+              </div>
+            </div>
+            <div class="stream-amount mono">$2,060</div>
+          </div>
+          <div class="stream-item">
+            <div class="stream-icon" style="background:rgba(0,229,160,0.1);">$</div>
+            <div class="stream-info">
+              <div class="stream-name">Brand Deal</div>
+              <div class="stream-detail">1 active deal</div>
+              <div class="stream-bar-track">
+                <div class="stream-bar-fill" style="width:16%;background:var(--green)"></div>
+              </div>
+            </div>
+            <div class="stream-amount mono">$1,460</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid-3-1 -->
+
+    <!-- Content P&L + Tax Jar -->
+    <div class="grid-3-1">
+
+      <!-- P&L table -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">CONTENT P&L — THIS MONTH</span>
+          <a class="card-action" href="../Content-P&L/content-pl.html">view all →</a>
+        </div>
+        <div class="ct-header">
+          <div class="ct-label">TITLE</div>
+          <div class="ct-label">REVENUE</div>
+          <div class="ct-label">COSTS</div>
+          <div class="ct-label">NET</div>
+          <div class="ct-label">MARGIN</div>
+        </div>
+
+        <div class="ct-row">
+          <div>
+            <div class="ct-title">How I grew 50k subs in 60 days</div>
+            <div class="ct-platform">YouTube · 142k views</div>
+          </div>
+          <div class="ct-val pos">$3,240</div>
+          <div class="ct-val neutral">$380</div>
+          <div class="ct-val pos">$2,860</div>
+          <div><span class="profit-badge high">88%</span></div>
+        </div>
+
+        <div class="ct-row">
+          <div>
+            <div class="ct-title">Honest review: Creator tools tier list</div>
+            <div class="ct-platform">YouTube · 87k views</div>
+          </div>
+          <div class="ct-val pos">$1,940</div>
+          <div class="ct-val neutral">$160</div>
+          <div class="ct-val pos">$1,780</div>
+          <div><span class="profit-badge high">92%</span></div>
+        </div>
+
+        <div class="ct-row">
+          <div>
+            <div class="ct-title">Brand collab — SaaS tool review</div>
+            <div class="ct-platform">YouTube · sponsored</div>
+          </div>
+          <div class="ct-val pos">$1,460</div>
+          <div class="ct-val neg">$1,120</div>
+          <div class="ct-val pos">$340</div>
+          <div><span class="profit-badge low">23%</span></div>
+        </div>
+
+        <div class="ct-row">
+          <div>
+            <div class="ct-title">Patreon monthly Q&amp;A + 3 Shorts</div>
+            <div class="ct-platform">Patreon + YouTube</div>
+          </div>
+          <div class="ct-val pos">$2,060</div>
+          <div class="ct-val neutral">$120</div>
+          <div class="ct-val pos">$1,940</div>
+          <div><span class="profit-badge high">94%</span></div>
+        </div>
+
+      </div>
+
+      <!-- Tax Jar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">TAX JAR</span>
+          <span class="card-action">Q3 est. due Jul 15</span>
+        </div>
+        <div class="tax-jar">
+          <div class="jar-ring">
+            <svg class="jar-svg" width="100" height="100" viewBox="0 0 100 100">
+              <!-- Track -->
+              <circle cx="50" cy="50" r="42" fill="none"
+                      stroke="#222228" stroke-width="8"/>
+              <!-- Progress: 73% filled -->
+              <circle cx="50" cy="50" r="42" fill="none"
+                      stroke="#FFB547" stroke-width="8"
+                      stroke-dasharray="263.9"
+                      stroke-dashoffset="70"
+                      stroke-linecap="round"
+                      transform="rotate(-90 50 50)"/>
+            </svg>
+            <div class="jar-inner">
+              <div class="jar-pct">73%</div>
+              <div class="jar-lbl">reserved</div>
+            </div>
+          </div>
+
+          <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;">
+            Q3 estimated tax
+          </div>
+
+          <div class="jar-stats">
+            <div class="jar-stat">
+              <div class="jar-stat-val" style="color:var(--amber)">$2,310</div>
+              <div class="jar-stat-lbl">Reserved</div>
+            </div>
+            <div class="jar-stat">
+              <div class="jar-stat-val" style="color:var(--text2)">$3,160</div>
+              <div class="jar-stat-lbl">Target</div>
+            </div>
+          </div>
+
+          <div class="jar-warning">
+            ⚠ $850 short of target.<br>Set aside from next 2 payments.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid-3-1 -->
+
+  </main>
+</div><!-- /app -->
+
+<!-- Expense modal -->
+<div class="modal-overlay" id="expenseOverlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Add Expense</div>
+        <div class="expense-modal-sub">Log a cost against your creator business</div>
+      </div>
+      <div class="modal-close" id="expenseClose">✕</div>
+    </div>
+
+    <div class="expense-steps">
+      <div class="estep active" data-step="1">
+        <div class="estep-dot">1</div>
+        <div class="estep-label">Details</div>
+      </div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="2">
+        <div class="estep-dot">2</div>
+        <div class="estep-label">Categorise</div>
+      </div>
+      <div class="estep-line"></div>
+      <div class="estep" data-step="3">
+        <div class="estep-dot">3</div>
+        <div class="estep-label">Confirm</div>
+      </div>
+    </div>
+
+    <div class="modal-body" id="stepBody1">
+      <div class="field-group">
+        <label class="field-label">Description</label>
+        <input class="field-input" id="expDesc" type="text" placeholder="e.g. Freelance video editor — May batch">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Amount ($)</label>
+          <div class="amount-wrap">
+            <span class="amount-prefix">$</span>
+            <input class="field-input amount-input" id="expAmount" type="number" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date</label>
+          <input class="field-input" id="expDate" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Paid via</label>
+        <div class="payment-pills">
+          <span class="pay-pill active" data-pay="card">💳 Card</span>
+          <span class="pay-pill" data-pay="bank">🏦 Bank transfer</span>
+          <span class="pay-pill" data-pay="paypal">P PayPal</span>
+          <span class="pay-pill" data-pay="crypto">◎ Crypto</span>
+          <span class="pay-pill" data-pay="cash">Cash</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body hidden" id="stepBody2">
+      <div class="field-group">
+        <label class="field-label">Category</label>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+      <div class="field-group" style="margin-top:4px;">
+        <label class="field-label">Link to content (optional)</label>
+        <select class="field-input" id="expContent">
+          <option value="">— Not linked to a specific video —</option>
+          <option>How I grew 50k subs in 60 days</option>
+          <option>Honest review: Creator tools tier list</option>
+          <option>Brand collab — SaaS tool review</option>
+          <option>Patreon monthly Q&A + 3 Shorts</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Is this tax-deductible?</label>
+        <div class="toggle-row">
+          <div class="tax-toggle" id="taxToggle">
+            <div class="toggle-track">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span class="toggle-label" id="taxLabel">Yes — business expense</span>
+          </div>
+          <div class="tax-hint" id="taxHint">Deductible as a direct production cost</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body hidden" id="stepBody3">
+      <div class="confirm-card">
+        <div class="confirm-row">
+          <span class="confirm-label">Description</span>
+          <span class="confirm-val" id="cfDesc">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Amount</span>
+          <span class="confirm-val confirm-amount" id="cfAmount">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Date</span>
+          <span class="confirm-val" id="cfDate">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Category</span>
+          <span class="confirm-val" id="cfCategory">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Linked content</span>
+          <span class="confirm-val" id="cfContent">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Tax deductible</span>
+          <span class="confirm-val" id="cfTax">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Paid via</span>
+          <span class="confirm-val" id="cfPay">—</span>
+        </div>
+      </div>
+      <div class="impact-bar" id="impactBar">
+        <div class="impact-icon">◈</div>
+        <div class="impact-text" id="impactText">—</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="expBack" style="display:none;">← Back</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" id="expCancel">Cancel</button>
+      <button class="btn btn-primary" id="expNext">Continue →</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script src="expense/expense-modal.js"></script>
+</body>
+</html>

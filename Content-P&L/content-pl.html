@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorLedger — Content P&L</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Dashboard/styles.css">
+  <link rel="stylesheet" href="content-pl.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ════════════════════════ SIDEBAR ════════════════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">Creator<span>Ledger</span></div>
+      <div class="logo-sub">v0.1 · early access</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">OVERVIEW</div>
+      <div class="nav-item" data-href="../Dashboard/index.html">
+        <span class="nav-icon">◈</span> Dashboard
+      </div>
+      <div class="nav-item active" data-href="content-pl.html">
+        <span class="nav-icon">⬡</span> Content P&L
+      </div>
+      <div class="nav-item" data-href="../Revenue/revenue.html">
+        <span class="nav-icon">◎</span> Revenue
+      </div>
+      <div class="nav-label">FINANCE</div>
+      <div class="nav-item" data-href="../Expenses/expenses.html">
+        <span class="nav-icon">⬟</span> Expenses
+      </div>
+      <div class="nav-item" data-href="../Tax-jar/tax-jar.html">
+        <span class="nav-icon">◇</span> Tax Jar
+      </div>
+      <div class="nav-item" data-page="deals">
+        <span class="nav-icon">⊡</span> Brand Deals
+      </div>
+      <div class="nav-label">INSIGHTS</div>
+      <div class="nav-item" data-page="reports">
+        <span class="nav-icon">◉</span> Reports
+      </div>
+      <div class="nav-item" data-page="integrations">
+        <span class="nav-icon">⬢</span> Integrations
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="creator-pill">
+        <div class="creator-avatar">RH</div>
+        <div>
+          <div class="creator-name">Reza Hajavi</div>
+          <div class="creator-handle">@redra_ha</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════ MAIN ════════════════════════ -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div>
+        <div class="page-title">Content P&L</div>
+        <div class="page-subtitle mono">profit per piece · all platforms</div>
+      </div>
+      <div class="topbar-right">
+        <div class="period-toggle">
+          <span class="period-btn active" data-period="month">This month</span>
+          <span class="period-btn" data-period="quarter">Quarter</span>
+          <span class="period-btn" data-period="year">Year</span>
+        </div>
+        <button class="btn btn-ghost" id="exportBtn">↓ Export</button>
+        <button class="btn btn-primary" id="logContentBtn">⬡ Log Content</button>
+      </div>
+    </div>
+
+    <!-- AI Insight -->
+    <div class="ai-bar">
+      <div class="ai-icon">✦</div>
+      <div class="ai-text">
+        Your top 2 videos this month generated <strong>$4,640 net profit</strong> with margins above 88% —
+        both were organic, no editor fees. Your brand deal returned only <strong>23% margin</strong> after
+        production costs. Next deal, aim for <strong>$2k+ minimum</strong> or cut post-production scope.
+        <span class="ai-meta"> · AI insight · updated 2h ago</span>
+      </div>
+    </div>
+
+    <!-- Summary metrics -->
+    <div class="metrics-row">
+      <div class="metric-card green">
+        <div class="metric-label">TOTAL REVENUE</div>
+        <div class="metric-value green">$9,240</div>
+        <span class="metric-change up">↑ 18% vs last month</span>
+      </div>
+      <div class="metric-card red">
+        <div class="metric-label">TOTAL COSTS</div>
+        <div class="metric-value red">$2,180</div>
+        <span class="metric-change down">↑ 6% vs last month</span>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">NET PROFIT</div>
+        <div class="metric-value green">$7,060</div>
+        <span class="metric-change up">↑ 24% vs last month</span>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-label">AVG MARGIN</div>
+        <div class="metric-value purple">76%</div>
+        <span class="metric-change" style="background:var(--purple-bg);color:var(--purple);">↑ 4pts vs last month</span>
+      </div>
+    </div>
+
+    <!-- Margin breakdown + Platform split -->
+    <div class="grid-3-1" style="margin-bottom:24px;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">MARGIN BY CONTENT TYPE</span>
+        </div>
+        <div class="margin-bars" id="marginBars"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">REVENUE BY PLATFORM</span>
+        </div>
+        <div class="donut-wrap">
+          <svg id="donutSvg" viewBox="0 0 120 120" width="120" height="120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#222228" stroke-width="16"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#FF5757" stroke-width="16"
+              stroke-dasharray="301.6" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)" id="donut-yt"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#FFB547" stroke-width="16"
+              stroke-dasharray="301.6" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)" id="donut-pt"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#00E5A0" stroke-width="16"
+              stroke-dasharray="301.6" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)" id="donut-bd"/>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-total">$9,240</div>
+            <div class="donut-label">total</div>
+          </div>
+        </div>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+
+    <!-- Filters + search -->
+    <div class="table-controls">
+      <div class="filter-tabs" id="filterTabs">
+        <span class="filter-tab active" data-filter="all">All content</span>
+        <span class="filter-tab" data-filter="youtube">YouTube</span>
+        <span class="filter-tab" data-filter="patreon">Patreon</span>
+        <span class="filter-tab" data-filter="sponsored">Sponsored</span>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search content…">
+      </div>
+    </div>
+
+    <!-- Full P&L table -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="pl-table-header">
+        <div class="pl-col-title pl-sort" data-col="title">TITLE <span class="sort-arrow">↕</span></div>
+        <div class="pl-col pl-sort" data-col="platform">PLATFORM</div>
+        <div class="pl-col pl-sort" data-col="revenue">REVENUE <span class="sort-arrow">↕</span></div>
+        <div class="pl-col pl-sort" data-col="costs">COSTS <span class="sort-arrow">↕</span></div>
+        <div class="pl-col pl-sort" data-col="net">NET <span class="sort-arrow">↕</span></div>
+        <div class="pl-col pl-sort" data-col="margin">MARGIN <span class="sort-arrow active-sort">↓</span></div>
+        <div class="pl-col">HOURS</div>
+        <div class="pl-col pl-sort" data-col="rpm">$/HR <span class="sort-arrow">↕</span></div>
+      </div>
+      <div id="plTableBody"></div>
+    </div>
+
+    <!-- Row detail drawer -->
+    <div class="detail-drawer" id="detailDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title" id="drawerTitle">—</div>
+        <div class="drawer-close" id="drawerClose">✕</div>
+      </div>
+      <div class="drawer-body" id="drawerBody"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Log Content modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Content</div>
+      <div class="modal-close" id="modalClose">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Title</label>
+        <input class="field-input" type="text" placeholder="e.g. How I built a SaaS in 30 days">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Platform</label>
+          <select class="field-input">
+            <option>YouTube</option>
+            <option>Patreon</option>
+            <option>TikTok</option>
+            <option>Instagram</option>
+            <option>Substack</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Type</label>
+          <select class="field-input">
+            <option>Organic</option>
+            <option>Sponsored</option>
+            <option>Membership</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Revenue ($)</label>
+          <input class="field-input" type="number" placeholder="0.00">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Production costs ($)</label>
+          <input class="field-input" type="number" placeholder="0.00">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Hours spent</label>
+          <input class="field-input" type="number" placeholder="0">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Published date</label>
+          <input class="field-input" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Notes</label>
+        <input class="field-input" type="text" placeholder="e.g. Editor: $200, Thumbnail: $50">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary">Save Content</button>
+    </div>
+  </div>
+</div>
+
+<script src="content-pl.js"></script>
+</body>
+</html>

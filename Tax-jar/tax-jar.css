@@ -1,0 +1,140 @@
+/* ─── Deadline banner ────────────────────────────────── */
+.deadline-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, rgba(255,181,71,0.1), rgba(255,87,87,0.06));
+  border: 1px solid rgba(255,181,71,0.25);
+  border-radius: var(--radius); padding: 16px 20px;
+  margin-bottom: 24px; gap: 16px;
+}
+.deadline-left  { display: flex; align-items: center; gap: 14px; }
+.deadline-icon  { font-size: 22px; color: var(--amber); flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.deadline-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.deadline-sub   { font-size: 12px; color: var(--text3); font-family:'DM Mono',monospace; margin-top: 2px; }
+.deadline-right { text-align: center; flex-shrink: 0; }
+.deadline-countdown       { font-size: 36px; font-weight: 800; color: var(--amber); letter-spacing:-2px; line-height:1; }
+.deadline-countdown-label { font-size: 11px; color: var(--text3); font-family:'DM Mono',monospace; }
+
+/* ─── Jar visual ─────────────────────────────────────── */
+.jar-card { display: flex; flex-direction: column; }
+.jar-visual-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.jar-ring-wrap { position:relative; display:flex; align-items:center; justify-content:center; width:200px; height:200px; }
+.jar-svg-big   { position:absolute; top:0; left:0; }
+.jar-center    { text-align:center; position:relative; z-index:1; }
+.jar-pct       { font-size:36px; font-weight:800; color:var(--amber); letter-spacing:-2px; line-height:1; }
+.jar-pct-label { font-size:11px; color:var(--text3); font-family:'DM Mono',monospace; margin-bottom:4px; }
+.jar-amount    { font-size:18px; font-weight:700; color:var(--text); letter-spacing:-0.5px; }
+.jar-of        { font-size:11px; color:var(--text3); font-family:'DM Mono',monospace; }
+
+/* ─── Gap row ────────────────────────────────────────── */
+.jar-gap-row {
+  display:flex; align-items:center; justify-content:center;
+  width:100%; background:var(--bg3); border-radius:var(--radius-sm);
+  border:1px solid var(--border); overflow:hidden;
+}
+.jar-gap-item    { flex:1; text-align:center; padding:12px 8px; }
+.jar-gap-val     { font-size:16px; font-weight:700; font-family:'DM Mono',monospace; margin-bottom:3px; }
+.jar-gap-label   { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+.jar-gap-divider { width:1px; background:var(--border); align-self:stretch; flex-shrink:0; }
+
+/* ─── Rate breakdown ─────────────────────────────────── */
+.rate-breakdown { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; width:100%; }
+.rate-title     { font-size:10px; font-weight:600; color:var(--text3); letter-spacing:0.08em; font-family:'DM Mono',monospace; margin-bottom:12px; }
+.rate-row       { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid var(--border); }
+.rate-row:last-child  { border-bottom:none; }
+.rate-row-total { margin-top:4px; padding-top:10px; border-top:1px solid var(--border2) !important; }
+.rate-label { font-size:12px; color:var(--text3); font-family:'DM Mono',monospace; }
+.rate-val   { font-size:13px; font-family:'DM Mono',monospace; color:var(--text2); }
+
+/* ─── Quarters list ──────────────────────────────────── */
+.quarter-item    { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.quarter-item:last-child { border-bottom:none; }
+.q-badge  { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; font-family:'DM Mono',monospace; flex-shrink:0; }
+.q-info   { flex:1; }
+.q-label  { font-size:13px; font-weight:600; }
+.q-due    { font-size:11px; color:var(--text3); font-family:'DM Mono',monospace; margin-top:1px; }
+.q-right  { text-align:right; flex-shrink:0; }
+.q-amount { font-size:14px; font-weight:600; font-family:'DM Mono',monospace; }
+.q-status { display:inline-flex; font-size:10px; font-family:'DM Mono',monospace; padding:2px 7px; border-radius:20px; font-weight:500; margin-top:3px; }
+.q-status.paid     { background:var(--green-bg); color:var(--green); }
+.q-status.partial  { background:var(--amber-bg); color:var(--amber); }
+.q-status.upcoming { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
+.q-progress      { height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:6px; }
+.q-progress-fill { height:100%; border-radius:2px; }
+
+/* ─── Rate pills ─────────────────────────────────────── */
+.rate-pill-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+.rate-pill     { font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; border:1px solid var(--border); background:transparent; color:var(--text3); cursor:pointer; transition:all 0.15s; font-family:'Syne',sans-serif; }
+.rate-pill:hover { border-color:var(--border2); color:var(--text2); }
+.rate-pill.active { background:var(--amber-bg); border-color:rgba(255,181,71,0.3); color:var(--amber); }
+.rate-pill.custom { border-style:dashed; }
+.rate-hint { font-size:11px; color:var(--text3); font-family:'DM Mono',monospace; }
+
+/* ─── Deductions list ────────────────────────────────── */
+.deduction-item      { display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); gap:8px; }
+.deduction-item:last-child { border-bottom:none; }
+.deduction-left { display:flex; align-items:center; gap:8px; }
+.deduction-icon { font-size:14px; }
+.deduction-name { font-size:12px; color:var(--text2); }
+.deduction-amt  { font-size:13px; font-weight:600; font-family:'DM Mono',monospace; color:var(--green); }
+
+/* ─── Log table ──────────────────────────────────────── */
+.log-table-header {
+  display:grid; grid-template-columns:2fr 90px 100px 70px 100px 100px;
+  padding:10px 20px; border-bottom:1px solid var(--border); background:var(--bg3);
+}
+.log-col-wide,.log-col { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; letter-spacing:0.06em; }
+.log-row {
+  display:grid; grid-template-columns:2fr 90px 100px 70px 100px 100px;
+  padding:13px 20px; border-bottom:1px solid var(--border);
+  align-items:center; transition:background 0.12s;
+}
+.log-row:hover { background:var(--bg3); }
+.log-row:last-child { border-bottom:none; }
+.log-source  { font-size:13px; font-weight:500; color:var(--text); }
+.log-sub     { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; margin-top:2px; }
+.log-date    { font-size:12px; color:var(--text3); font-family:'DM Mono',monospace; }
+.log-income  { font-size:13px; font-family:'DM Mono',monospace; color:var(--green); }
+.log-rate    { font-size:12px; font-family:'DM Mono',monospace; color:var(--text3); }
+.log-reserved{ font-size:13px; font-family:'DM Mono',monospace; color:var(--amber); font-weight:600; }
+.log-status-badge { display:inline-flex; font-size:10px; font-family:'DM Mono',monospace; padding:3px 8px; border-radius:20px; font-weight:500; }
+.status-reserved { background:var(--amber-bg); color:var(--amber); }
+.status-paid     { background:var(--green-bg); color:var(--green); }
+.status-pending  { background:var(--bg3); color:var(--text3); border:1px solid var(--border); }
+
+/* ─── Modal ──────────────────────────────────────────── */
+.tax-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(6px); z-index:200;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity 0.25s;
+}
+.tax-overlay.open { opacity:1; pointer-events:all; }
+.tax-modal {
+  background:var(--bg2); border:1px solid var(--border2); border-radius:16px;
+  width:460px; max-width:calc(100vw - 32px); display:flex; flex-direction:column;
+  transform:translateY(16px) scale(0.98); transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 24px 60px rgba(0,0,0,0.5);
+}
+.tax-overlay.open .tax-modal { transform:translateY(0) scale(1); }
+.tax-modal-header { display:flex; align-items:flex-start; justify-content:space-between; padding:22px 24px 16px; border-bottom:1px solid var(--border); }
+.tax-modal-title  { font-size:17px; font-weight:700; }
+.tax-modal-sub    { font-size:12px; color:var(--text3); font-family:'DM Mono',monospace; margin-top:3px; }
+.tax-modal-close  { font-size:14px; color:var(--text3); cursor:pointer; padding:4px; transition:color 0.15s; }
+.tax-modal-close:hover { color:var(--text); }
+.tax-modal-body   { padding:20px 24px; display:flex; flex-direction:column; gap:16px; }
+.tfield-group { display:flex; flex-direction:column; gap:7px; }
+.tfield-row   { display:flex; gap:12px; }
+.tfield-label { font-size:11px; font-weight:600; color:var(--text3); letter-spacing:0.04em; font-family:'DM Mono',monospace; }
+.tfield-input {
+  background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius-sm);
+  padding:10px 12px; font-size:13px; color:var(--text); font-family:'Syne',sans-serif;
+  outline:none; transition:border-color 0.15s; width:100%;
+}
+.tfield-input:focus { border-color:var(--green); }
+.tfield-input option { background:var(--bg3); }
+.tamount-wrap   { position:relative; }
+.tamount-prefix { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--text3); font-family:'DM Mono',monospace; pointer-events:none; }
+.tamount-input  { padding-left:24px; }
+.tax-impact     { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; background:var(--green-bg); border:1px solid rgba(0,229,160,0.2); border-radius:var(--radius-sm); }
+.tax-modal-footer { display:flex; justify-content:flex-end; gap:8px; padding:14px 24px; border-top:1px solid var(--border); }
